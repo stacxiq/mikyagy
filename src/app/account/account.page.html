@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          حسابك
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item-divider color="danger" (click)="editAccount()">
+      تعديل الحساب
+    </ion-item-divider>
+    <div class="logos">
+      <img src="{{user.image}}" style="width:180px; height:180px; border-radius:50%">
+    </div>
+
+    <h2 style="color: #c0101e; text-align: center">- المعلومات الشخصية -</h2>
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="contact"></ion-icon> الاسم
+      </p>
+    </ion-list-header>
+
+    <ion-item>
+      <p>{{user.firstname}} {{user.lastname}}</p>
+    </ion-item>
+
+  
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="call"></ion-icon> رقم الهاتف
+      </p>
+    </ion-list-header>
+
+    <ion-item>
+      <p>{{user.phone}}</p>
+    </ion-item>
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="map"></ion-icon> العنوان
+      </p>
+    </ion-list-header>
+
+    <ion-item>
+      <p>{{user.governorate}} / {{user.city}} / {{user.nearest_point}}</p>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          تعديل حساب
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="signin">
+    <div class="header">
+      <div class="logos">
+        <img src="{{user.image}}" style="width:100px; height:100px; border-radius:50%">
+      </div>
+      <h1>معلومات الحساب</h1>
+    </div>
+    <div class="main">
+      <form role="form" #f="ngForm" (ngSubmit)="signup(f)">
+        <ion-item>
+          <ion-input class="form-control" placeholder="الاسم الاول" type="text" name="firstname"
+            [(ngModel)]="user.firstname" required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input class="form-control" placeholder="اسم العائلة" type="text" name="lastname"
+            [(ngModel)]="user.lastname" required>
+          </ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-input class="form-control" placeholder="الهاتف" type="tel" name="phone" [(ngModel)]="user.phone"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <mat-form-field>
+          <mat-label class="form-control">المحافظة</mat-label>
+          <select  class="form-control" name="governorate" style="text-align: right"
+           [(ngModel)]="user.governorate" matNativeControl required>
+            <option value="بغداد">بغداد</option>
+            <option value="البصرة">البصرة</option>
+            <option value="النجف">النجف</option>
+            <option value="كربلاء">كربلاء</option>
+            <option value="صلاح الدين">صلاح الدين</option>
+            <option value="الانبار">الانبار</option>
+            <option value="ديالى">ديالى</option>
+            <option value="ميسان">ميسان</option>
+            <option value="القادسية">القادسية</option>
+            <option value="دهوك">دهوك</option>
+            <option value="نينوى">نينوى</option>
+            <option value="اربيل">اربيل</option>
+            <option value="بابل">بابل</option>
+            <option value="حلبجة">حلبجة</option>
+            <option value="ذي قار">ذي قار</option>
+            <option value="السليمانية">السليمانية</option>
+            <option value="كركوك">كركوك </option>
+            <option value="المثنى">المثنى</option>
+            <option value="واسط">واسط</option>
+          </select>
+        </mat-form-field>
+
+        <ion-item>
+          <ion-input class="form-control" placeholder="المدينة" type="text" name="city" [(ngModel)]="user.city"
+            required>
+          </ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-input class="form-control" placeholder="نقطة دالة" type="text" name="nearest_point"
+            [(ngModel)]="user.nearest_point" >
+          </ion-input>
+        </ion-item>
+        <ion-button expand="block" color="danger" type="submit" [disabled]="!f.valid">حفظ</ion-button>
+        <ion-button expand="block" color="danger" type="button" (click)="back()"> الغاء</ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

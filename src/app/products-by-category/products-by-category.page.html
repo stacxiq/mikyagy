@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          المنتجات
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content ion-ion-no-padding>
+  <div class="header-image">
+    <ion-card>
+      <img [src]="category.image ? category.image.src : 'assets/images/brands/' + category.index + '.jpg'" />
+    </ion-card>
+  </div>
+
+  <div class="spinner">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div id="no-items-ava">
+    <img src="assets/imgs/makeover.svg">
+    <p class="noitem">لا يوجد عناصر</p>
+  </div>
+
+  <div id="SHOW" class="main-content">
+    <mat-accordion *ngIf="subcategories.length > 0">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          المنتجات الفرعية
+        </mat-expansion-panel-header>
+        <ion-item ion-text-wrap *ngFor="let subcategory of subcategories" (click)="openCategoryPage(subcategory)">
+          {{ subcategory.name }}
+        </ion-item>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let product of products" ion-text-wrap>
+          <ion-card ion-no-padding (click)="openProductPage(product)">
+            <ion-chip item-right style="position: absolute; top: 5px; right:5px; font-size: 10px"
+              *ngIf="product.on_sale && product.sale_price">
+              <ion-label color="danger" style="margin-right: 5px;">
+                {{ (product.regular_price - product.sale_price) *100 / product.regular_price | number:'1.0-0'}}% OFF
+              </ion-label>
+              <ion-icon name="pricetag" color="danger"></ion-icon>
+            </ion-chip>
+            <div class="image" [style.background-image]='getBackground(product.images[0].src)'></div>
+            <p class="product-name"> {{ product.name }} </p>
+            <ion-row>
+              <ion-col>
+                <div *ngIf="product.on_sale && product.sale_price" style="text-align: left;">
+                  <p *ngIf="product.variations.length == 0">
+                    <span style="text-decoration: line-through">{{ currency_symbol }}{{ product.regular_price }}</span>
+                    <span>&nbsp;{{ currency_symbol }}{{ product.sale_price }}</span>
+                  </p>
+                  <p *ngIf="product.variations.length > 0">
+                    <span [innerHTML]="product.price_html"></span>
+                  </p>
+                </div>
+                <div *ngIf="!(product.on_sale && product.sale_price)" style="text-align: left;">
+                  <p *ngIf="product.variations.length == 0">
+                    <span [innerHTML]="currency_symbol + ' ' +  product.price"></span>
+                  </p>
+                  <p *ngIf="product.variations.length > 0">
+                    <span [innerHTML]="product.price_html"></span>
+                  </p>
+                </div>
+              </ion-col>
+              <ion-col>
+                <span *ngIf="product.average_rating >= 1">
+                  <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+                </span>
+                <span *ngIf="product.average_rating >= 2">
+                  <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+                </span>
+                <span *ngIf="product.average_rating >= 3">
+                  <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+                </span>
+                <span *ngIf="product.average_rating >= 4">
+                  <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+                </span>
+                <span *ngIf="product.average_rating >= 5">
+                  <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-infinite-scroll (ionInfinite)="loadMoreProducts($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>

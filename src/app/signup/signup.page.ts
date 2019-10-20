@@ -1,0 +1,180 @@
+
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { NgForm } from '@angular/forms';
+import { DataService } from '../services/data.service'
+import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
+import { LoadingService } from '../services/loading.service';
+import { FirebaseService } from '../services/firebase.service';
+import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { Storage } from '@ionic/storage';
+@Component({
+  selector: 'app-signup',
+  templateUrl: './signup.page.html',
+  styleUrls: ['./signup.page.scss'],
+})
+export class SignupPage {
+
+  imagecheck = false;
+  show: boolean = false;
+  mySelectedPhoto: any;
+  constructor(public newUser: User,
+    public data: DataService,
+    private camera: Camera,
+    private storage: Storage,
+    private fb: Facebook,
+    private fireAuth: AngularFireAuth,
+    private fire: FirebaseService,
+    private loading: LoadingService,
+    private router: Router) {
+
+
+  }
+
+  password() {
+    this.show = !this.show;
+  }
+
+  signup(f: NgForm) {
+    this.newUser.email = this.makeid(6) + Date.now().toString() + '@' + this.makeid(5) + '.com';
+    if (this.newUser.image == null || this.newUser.image == undefined) {
+      this.newUser.image = 'assets/imgs/logo.png';
+      this.newUser.imgname = null;
+    }
+    else if (this.newUser.email == undefined || this.newUser.email == null) {
+    }
+    console.log(this.newUser);
+    this.data.saveData(this.newUser);
+    this.router.navigate(['/verify', 'no']);
+  }
+
+  back() {
+    if (this.newUser.image && this.imagecheck)
+      this.fire.deleteStorageFile('profiles', this.newUser.imgname);
+    this.router.navigate(['/home']);
+  }
+
+  dataURLtoBlob(myURL) {
+    let binary = atob(myURL.split(',')[1]);
+    let array = [];
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+  }
+
+  upload() {
+    const randomId = Math.random().toString(8).substring(2);
+    this.newUser.imgname = randomId;
+
+    if (this.mySelectedPhoto) {
+      var uploadTask = firebase.storage().ref().child('profiles/' + this.newUser.imgname + ".jpg");
+      var put = uploadTask.put(this.mySelectedPhoto);
+      put.then(() => {
+        uploadTask.getDownloadURL().then(url => {
+          this.loading.dismiss();
+          this.imagecheck = true;
+          this.newUser.image = url;
+        });
+      });
+      put.catch(err => {
+        this.loading.dismiss();
+        alert(JSON.stringify(err));
+      })
+    }
+  }
+
+  async takePhoto() {
+    let imgBlob;
+    const options: CameraOptions = {
+      targetHeight: 720,
+      targetWidth: 720,
+      quality: 80,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+    await this.camera.getPicture(options).then(
+      imageData => {
+        this.loading.createLoading("الرجاء الانتظار").then(res => {
+          this.loading.show();
+        });
+        imgBlob = imageData;
+      },
+      err => {
+        alert(JSON.stringify(err));
+      }
+    );
+    this.mySelectedPhoto = await this.dataURLtoBlob(
+      "data:image/jpeg;base64," + imgBlob
+    );
+    await this.upload();
+  }
+
+  makeid(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+  logginFacebook() {
+    this.fb.login(['email'])
+      .then((response: FacebookLoginResponse) => {
+        this.onLoginSuccess(response);
+        console.log(response.authResponse.accessToken);
+      }).catch((error) => {
+        console.log(error)
+        this.onLoginError(error);
+      });
+  }
+
+  async onLoginSuccess(res: FacebookLoginResponse) {
+    const credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+    await this.fireAuth.auth.signInWithCredential(credential)
+      .then((response) => {
+        let info = JSON.parse(JSON.stringify(response));
+        this.storage.set('userid', info.user.id);
+        this.checkAccount(info);
+      })
+  }
+
+  onLoginError(err) {
+    this.fire.presentToast("حصل خطا اثناء التسجيل!");
+    console.log(err);
+  }
+
+
+  async checkAccount(info) {
+    if (info.user.uid) {
+      let user = await this.fire.getRealTimeData('users', info.user.uid);
+      await user.subscribe(data => {
+        if (data.length == 0 && data != null && data != undefined) {
+          // user data from facebook
+          this.newUser.id = info.user.uid;
+          this.newUser.firstname = info.additionalUserInfo.profile.first_name;
+          this.newUser.lastname = info.additionalUserInfo.profile.last_name;
+          this.newUser.email = info.user.email;
+          this.newUser.phone = info.user.phoneNumber;
+          this.newUser.image = info.user.photoURL + '?type=large&width=720&height=720';
+          this.fire.presentToast("يرجى تاكيد رقم الهاتف");
+          this.data.saveData(this.newUser);
+          this.router.navigate(['/verify', 'yes']);
+        }
+        else {
+          this.fire.presentToast("تم تسجيل الدخول بنجاح");
+          this.back();
+        }
+      });
+    } else {
+      this.fire.presentToast("حصل خطا اثناء مزامنة البيانات");
+    }
+  }
+
+}

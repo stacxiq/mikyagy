@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      الصفحة الرئيسية
+    </ion-title>
+    <ion-buttons slot="end" style="padding :8px">
+      <ion-icon style="font-size: 24px !important" name="cart" (click)="gotoCart()"></ion-icon>
+      <ion-badge class="cart-badge">{{ cart_count }}</ion-badge>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content ion-no-padding overflow-scroll="true">
+  <ion-card *ngIf="images.length > 0">
+    <ion-slides [options]="slideOpts" pager="true">
+      <ion-slide *ngFor="let item of images">
+        <img *ngIf="fireImages" [src]="item.image" />
+        <img *ngIf="!fireImages" [src]="item" />
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
+
+  <ion-list style="margin-bottom:0;">
+    <ion-item-divider color="danger">المنتجات المميزة</ion-item-divider>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-slides [options]="slideOpts2">
+        <ion-slide class="ion-slide" *ngFor="let product of featuredProducts; let i = index">
+          <ion-card class="ion-no-padding" (click)="openProductPage(product)">
+            <ion-chip item-right style="position: absolute; top: 5px; right:5px; font-size: 10px"
+              *ngIf="product.on_sale && product.sale_price">
+              <ion-label color="danger" style="margin-right: 5px;">
+                {{ (product.regular_price - product.sale_price) *100 / product.regular_price | number:'1.0-0'}}%
+                OFF</ion-label>
+              <ion-icon name="pricetag" color="danger"></ion-icon>
+            </ion-chip>
+            <div class="image" [style.background-image]='getBackground(product.images[0].src)'></div>
+            <p class="product-name"> {{ product.name }} </p>
+            <ion-row>
+              <ion-col>
+                <div *ngIf="product.on_sale && product.sale_price" style="text-align: left;">
+                  <p *ngIf="product.variations.length == 0">
+                    <span style="text-decoration: line-through">{{ currency_symbol }}{{ product.regular_price }}</span>
+                    <span>&nbsp;{{ currency_symbol }}{{ product.sale_price }}</span>
+                  </p>
+                  <p *ngIf="product.variations.length > 0">
+                    <span [innerHTML]="product.price_html"></span>
+                  </p>
+                </div>
+                <div *ngIf="!(product.on_sale && product.sale_price)" style="text-align: left;">
+                  <p *ngIf="product.variations.length == 0">
+                    <span [innerHTML]="currency_symbol + ' ' +  product.price"></span>
+                  </p>
+                  <p *ngIf="product.variations.length > 0">
+                    <span [innerHTML]="product.price_html"></span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+  <ion-list style="margin-bottom:0;">
+    <ion-item-divider color="danger">تخفيضات على المنتجات</ion-item-divider>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-slides class="ion-slides" [options]="slideOpts2">
+        <ion-slide class="ion-slide" *ngFor="let product of discountProducts; let i = index">
+          <ion-card ion-no-padding (click)="openProductPage(product)">
+            <ion-chip item-right style="position: absolute; top: 5px; right:5px; font-size: 10px"
+              *ngIf="product.on_sale && product.sale_price">
+              <ion-label color="danger" style="margin-right: 5px;">
+                {{ (product.regular_price - product.sale_price) *100 / product.regular_price | number:'1.0-0'}}%
+                OFF</ion-label>
+              <ion-icon name="pricetag" color="danger"></ion-icon>
+            </ion-chip>
+            <div class="image" [style.background-image]='getBackground(product.images[0].src)'></div>
+            <p class="product-name"> {{ product.name }} </p>
+            <ion-row>
+              <ion-col>
+                <div *ngIf="product.on_sale && product.sale_price" style="text-align: left;">
+                  <p *ngIf="product.variations.length == 0">
+                    <span style="text-decoration: line-through">{{ currency_symbol }}{{ product.regular_price }}</span>
+                    <span>&nbsp;{{ currency_symbol }}{{ product.sale_price }}</span>
+                  </p>
+                  <p *ngIf="product.variations.length > 0">
+                    <span [innerHTML]="product.price_html"></span>
+                  </p>
+                </div>
+                <div *ngIf="!(product.on_sale && product.sale_price)" style="text-align: left;">
+                  <p *ngIf="product.variations.length == 0">
+                    <span [innerHTML]="currency_symbol + ' ' +  product.price"></span>
+                  </p>
+                  <p *ngIf="product.variations.length > 0">
+                    <span [innerHTML]="product.price_html"></span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+
+  <img style="margin-top: 10px;" src="./assets/imgs/banner.jpg" />
+</ion-content>

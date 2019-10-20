@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          الاقسام
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div class="spinner">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div id="no-items-ava">
+    <img src="assets/imgs/makeover.svg">
+    <p class="noitem">لا يوجد عناصر</p>
+  </div>
+
+  <ion-card id="SHOW" *ngFor="let section of sectionsData" (click)="openCategoryPage(section)" color="danger">
+    <img src="{{section.image}}" />
+    <ion-card-header text-center color="white">
+      {{ section.name | uppercase }}
+    </ion-card-header>
+  </ion-card>
+
+  <!-- <ion-list *ngIf="taskTemplates$">
+    <ion-item *ngFor="let item of taskTemplates$ | async">
+      {{item | json}}
+    </ion-item>
+  </ion-list> -->
+</ion-content>

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          الماركات
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content ion-padding>
+
+  <ion-card *ngFor="let brand of brands; let i = index" (click)="openCategoryPage(brand[i+1], i+1)" color="danger">
+    <img [src]="'assets/images/brands/' + (i+1) + '.jpg'" />
+    <ion-card-header ion-text-center color="white">
+      {{ brand[i+1].name | uppercase }}
+    </ion-card-header>
+  </ion-card>
+
+</ion-content>

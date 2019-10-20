@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          سلتك
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item-divider color="danger" [hidden]="showEmptyCartMessage">
+      تفاصيل سلتك
+    </ion-item-divider>
+    <ion-item-divider color="danger" [hidden]="!showEmptyCartMessage">
+      لا يوجد منتجات في السلة
+    </ion-item-divider>
+
+    <ion-card color="light" *ngFor="let item of cartItems; let i = index">
+      <ion-item color="light">
+
+        <ion-thumbnail item-right>
+          <img style="border-radius: 100%" [src]="item.product.featured_src || item.product.images[0].src" />
+        </ion-thumbnail>
+        <h6 style="font-weight: bold; margin:5px">{{ item.product.name || item.product.title }}</h6>
+        <p *ngIf="item.variation"><span *ngFor="let att of item.variation.attributes">{{ att.option | titlecase }}
+            &nbsp;</span></p>
+        <h6 *ngIf="!item.variation"><span [innerHTML]="item.product.price_html"></span><span
+            *ngIf="item.product.sale_price">
+            {{ (item.product.regular_price - item.product.sale_price)/item.product.regular_price * 100  | number:'1.2-2'}}
+            % OFF</span></h6>
+        <h6 *ngIf="item.variation"><span>{{ currency_symbol }}
+            {{ item.variation.regular_price | number: '1.2-2'}}</span><span
+            *ngIf="item.product.sale_price">{{ (item.variation.regular_price - item.variation.sale_price)/item.variation.regular_price * 100  | number:'1.2-2'}}
+            % OFF</span></h6>
+      </ion-item>
+      <ion-item class="compact">
+        <ion-row ion-no-padding>
+          <ion-col size="8" ion-no-padding>
+            <ion-button fill="clear" color="danger" (click)="changeQty(item, i, -1)">
+              <ion-icon name="remove-circle"></ion-icon>
+            </ion-button>
+            <ion-button color="dark" fill="clear">{{ item.qty }}</ion-button>
+            <ion-button fill="clear" color="danger" (click)="changeQty(item, i, 1)">
+              <ion-icon name="add-circle"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="4" style="text-align: right;">
+            <ion-button small outline (click)="removeFromCart(item, i)" style="width: 64px;" color="danger">ازالة
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+
+    <ion-row ion-no-padding>
+      <ion-col ion-no-padding>
+        <ion-button color="danger" expand="block">الكلي {{ currency_symbol }} {{ total | number}}
+        </ion-button>
+      </ion-col>
+      <ion-col ion-no-padding>
+        <ion-button color="danger" expand="block" fill="outline" (click)="checkout()">اكمال الطلب</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-toolbar>
+</ion-footer>

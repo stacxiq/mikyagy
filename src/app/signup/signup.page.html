@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          انشاء حساب
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content ion-padding>
+  <div class="signin">
+    <div class="header">
+      <div class="logos">
+        <img *ngIf="!imagecheck" src="assets/imgs/logo.png" width="80">
+        <img *ngIf="imagecheck" src="{{newUser.image}}" style="width:100px; height:100px; border-radius:50%">
+      </div>
+      <h1>انشاء حساب</h1>
+      <p>الرجاء ملئ جميع المعلومات ادناه</p>
+    </div>
+    <div class="main">
+      <form role="form" #f="ngForm" (ngSubmit)="signup(f)">
+        <!-- <div class="myimage" (click)="takePhoto()" *ngIf="!imagecheck">
+          <div style="text-align: center">
+            <ion-icon name="images"></ion-icon>
+            <p>رفع صورة</p>
+          </div>
+        </div> -->
+        <ion-item>
+          <ion-input class="form-control" placeholder="الاسم الاول" type="text" name="firstname"
+            [(ngModel)]="newUser.firstname" required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input class="form-control" placeholder="اسم العائلة" type="text" name="lastname"
+            [(ngModel)]="newUser.lastname" required>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>المحافظة</ion-label>
+          <ion-select cancelText="الغاء" okText="اختيار" name="governorate" [(ngModel)]="newUser.governorate" required>
+            <ion-select-option value="بغداد">بغداد</ion-select-option>
+            <ion-select-option value="البصرة">البصرة</ion-select-option>
+            <ion-select-option value="النجف">النجف</ion-select-option>
+            <ion-select-option value="كربلاء">كربلاء</ion-select-option>
+            <ion-select-option value="صلاح الدين">صلاح الدين</ion-select-option>
+            <ion-select-option value="الانبار">الانبار</ion-select-option>
+            <ion-select-option value="ديالى">ديالى</ion-select-option>
+            <ion-select-option value="ميسان">ميسان</ion-select-option>
+            <ion-select-option value="القادسية">القادسية</ion-select-option>
+            <ion-select-option value="دهوك">دهوك</ion-select-option>
+            <ion-select-option value="نينوى">نينوى</ion-select-option>
+            <ion-select-option value="اربيل">اربيل</ion-select-option>
+            <ion-select-option value="بابل">بابل</ion-select-option>
+            <ion-select-option value="حلبجة">حلبجة</ion-select-option>
+            <ion-select-option value="ذي قار">ذي قار</ion-select-option>
+            <ion-select-option value="السليمانية">السليمانية</ion-select-option>
+            <ion-select-option value="كركوك">كركوك </ion-select-option>
+            <ion-select-option value="المثنى">المثنى</ion-select-option>
+            <ion-select-option value="واسط">واسط</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-input class="form-control" placeholder="البريد الالكتروني" type="email" name="email"
+            [(ngModel)]="newUser.email" email>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input class="form-control" placeholder="كلمة المرور" [type]="show ? 'text' : 'password'" name="password"
+            [(ngModel)]="newUser.password" required minlength="8"></ion-input>
+        </ion-item>
+
+        <div class="form-check" style="margin:5px">
+          <label class="form-check-label">
+            <ion-checkbox color="danger" (click)="password()"></ion-checkbox>
+            اظهار كلمة المرور
+          </label>
+        </div>
+
+        <ion-button color="danger" type="submit" [disabled]="!f.valid">انشاء حساب</ion-button>
+
+        <!--<ion-button shape="round" (click)="logginFacebook()">
+            تسجيل الدخول باستخدام الفيسبوك
+            <ion-icon style="padding:2px" name="logo-facebook"></ion-icon>
+          </ion-button> -->
+
+      </form>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "mikyagy",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

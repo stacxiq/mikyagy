@@ -1,0 +1,150 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          التفاصيل
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content ion-padding>
+
+  <ion-card>
+    <ion-slides pager="true" *ngIf="!selectedVariation">
+      <ion-slide *ngFor="let image of product.images">
+        <img class="image" [src]="image.src" />
+      </ion-slide>
+    </ion-slides>
+
+    <img *ngIf="selectedVariation && selectedVariation.image.src" class="image" [src]="selectedVariation.image.src" />
+
+    <ion-card-content>
+      <ion-card-title>
+        {{ product.title || product.name }} &nbsp;
+        <ion-chip *ngFor="let cat of product.categories" style="margin-left: 5px;">
+          <ion-label style="font-size: 10px;" color="danger" [innerHTML]="cat.name || cat"></ion-label>
+        </ion-chip>
+      </ion-card-title>
+
+      <div [innerHTML]="product.description"></div>
+
+    </ion-card-content>
+
+
+  </ion-card>
+
+  <ion-card *ngIf="product.variations.length > 0" ion-no-padding>
+    <ion-item-divider color="light">خصائص المنتج</ion-item-divider>
+    <ng-container *ngFor="let attribute of product.attributes">
+      <ion-card class="full-width-card" *ngIf="colorMap[attribute.slug] && attribute.variation" ion-padding>
+        <ion-button (click)="check(attribute.name, option)"
+          [style.background-color]="colorMap[attribute.slug] ? colorMap[attribute.slug][option]: ''"
+          *ngFor="let option of attribute.options" shape="round" fill="outline" slot="icon-only">
+
+          <ion-icon [name]="selectedOptions[attribute.name]==option ? 'checkmark': 'checkmark'"
+            [style.color]="selectedOptions[attribute.name]==option ? '#D30C66': colorMap[attribute.slug][option]">
+          </ion-icon>
+        </ion-button>
+
+      </ion-card>
+
+      <ion-item *ngIf="!colorMap[attribute.slug] && attribute.variation">
+          <!-- <ion-select cancelText="الغاء" okText="اختيار" [(ngModel)]="selectedOptions[attribute.name]"
+            (ionChange)="check(attribute.name)" >
+            <ion-select-option *ngFor="let option of attribute.options" [value]="option" (click)="print(option)" onclick="print(option)"> {{ option }}
+            </ion-select-option>
+          </ion-select> -->
+        <mat-form-field>
+          <mat-label class="form-control">{{attribute.name | titlecase }}</mat-label>
+          <select  class="form-control" name="governorate" style="text-align: right"
+          [(ngModel)]="selectedOptions[attribute.name]" matNativeControl required (change)="check(attribute.name, $event.target.value)">
+            <option *ngFor="let option of attribute.options" [value]="option" (select)="print(option)" onclick="print(option)">{{option}}</option>
+          </select>
+        </mat-form-field>
+      </ion-item>
+    </ng-container>
+  </ion-card>
+
+  <ion-card *ngIf="product.attributes.length > 0 && hasSpecs">
+    <ion-item-divider color="light">المواصفات</ion-item-divider>
+    <ion-card-content>
+      <ion-grid>
+        <ng-container *ngFor="let att of product.attributes">
+          <!--For Products opened from any page other than cart-->
+          <ion-row *ngIf="!att.variation && att.options">
+            <ion-col size="4">
+              {{ att.name | titlecase}}
+            </ion-col>
+            <ion-col size="8">
+              <span *ngFor="let option of att.options"> {{ option | titlecase}}</span>
+            </ion-col>
+          </ion-row>
+          <!--For Variable products opened from Orders Page-->
+          <ion-row *ngIf="!att.variation && att.option">
+            <ion-col size="4">
+              {{ att.name | titlecase}}
+            </ion-col>
+            <ion-col size="8">
+              <span> {{ att.option | titlecase}}</span>
+            </ion-col>
+          </ion-row>
+        </ng-container>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="reviews.length > 0">
+    <ion-item-divider color="light">مراجعات المنتج</ion-item-divider>
+    <ion-card-content>
+
+      <ion-grid>
+        <ion-row *ngFor="let review of reviews">
+          <ion-col size="4">
+            <b>{{ review.reviewer_name }}</b><br />
+            <span *ngIf="review.rating >= 1">
+              <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+            </span>
+            <span *ngIf="review.rating >= 2">
+              <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+            </span>
+            <span *ngIf="review.rating >= 3">
+              <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+            </span>
+            <span *ngIf="review.rating >= 4">
+              <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+            </span>
+            <span *ngIf="review.rating >= 5">
+              <ion-icon style="color: #d4af37" small name="star"></ion-icon>
+            </span>
+
+          </ion-col>
+          <ion-col size="8">
+            {{ review.review }}
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button icon-left expand="block" fill="outline" [disabled]="productPrice == 0" color="danger" (click)="addToCart(product)">
+      <ion-icon name="basket"></ion-icon>
+      {{  productPrice !=0 ? ' اضافة الى السلة ' + currency_symbol + ' ' + productPrice : '    يرجى تحديد الخصائص   ' }}
+    </ion-button>
+    <ion-button icon-left expand="block" color="danger" (click)="openCart()">
+      <ion-icon name="basket"></ion-icon>
+      الذهاب للسلة
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

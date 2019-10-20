@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>636478986701-rtbf7bkpinqnag19t4k26d5d49gdpunb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.636478986701-rtbf7bkpinqnag19t4k26d5d49gdpunb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQ2MVgObecgWZ6Tp_5kAeBJa8DTvZspd4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>636478986701</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.husam.mikyagy</string>
+	<key>PROJECT_ID</key>
+	<string>mikyagy-52267</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mikyagy-52267.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:636478986701:ios:005b77f971211ec5724c84</string>
+	<key>DATABASE_URL</key>
+	<string>https://mikyagy-52267.firebaseio.com</string>
+</dict>
+</plist>

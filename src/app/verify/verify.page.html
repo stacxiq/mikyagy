@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          التحقق من حساب
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="signin">
+    <div class="header">
+      <h1>تاكيد رقم الهاتف</h1>
+      <p>الرجاء تاكيد رقم الهاتف لاستخدام التطبيق</p>
+    </div>
+    <div class="main">
+      <form role="form" #f="ngForm">
+        <div *ngIf="!check">
+          <ion-item>
+            <ion-input class="form-control" placeholder="رقم الهاتف" type="tel" name="phone" [(ngModel)]="phone"
+              required minlength="11">
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" fill="outline" type="buttom" color="danger" (click)="sendcode()"
+            [disabled]="!f.valid">
+            ارسال رمز التحقيق</ion-button>
+        </div>
+      </form>
+
+      <div *ngIf="check">
+        <form role="form" #f="ngForm">
+          <ion-item>
+            <ion-input class="form-control" placeholder="يرجى ادخال رمز التحقيق" name="code"
+              [(ngModel)]="verificationCode" required minlength="6">
+            </ion-input>
+          </ion-item>
+          <ion-button expand="block" fill="outline" (click)="verifyLoginCode()" color="danger" type="buttom"
+            [disabled]="!f.valid">
+            تاكيد رقم
+            الهاتف</ion-button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div id="recaptcha-container"></div>
+  </ion-toolbar>
+</ion-footer>

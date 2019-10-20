@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          التفاصيل
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img *ngIf="post.better_featured_image" [src]="post.better_featured_image.source_url">
+  <ion-item-divider no-lines color="danger">{{post.date}}</ion-item-divider>
+  <div style="padding:10px">
+    <h3>{{post.title.rendered}}</h3>
+    <div innerHTML="{{post.content.rendered}}"></div>
+  </div>
+</ion-content>

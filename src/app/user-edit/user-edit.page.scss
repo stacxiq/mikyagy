@@ -1,0 +1,67 @@
+
+ion-title,
+ion-content {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+}
+
+.signin {
+    text-align: center;
+}
+
+.header {
+    text-align: center
+}
+
+.logos {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+ion-input {
+    font-family: 'Cairo', sans-serif;
+}
+
+.myimage {
+    height: 80px;
+    direction: rtl;
+    font-family: 'Cairo', sans-serif;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3880ff;
+    width: 100%;
+    border: 1px dashed #CCC;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.myimage p {
+    margin: 0;
+}
+mat-label{
+    font-family: 'Cairo', sans-serif;
+    text-align: left !important
+}
+ mat-form-field[_ngcontent-qrm-c3] {
+    direction: rtl;
+    text-align: right;
+}
+.mat-form-field {
+    text-align: right !important;
+}
+mat-form-field {
+    width: 95%;
+    direction: rtl;
+    margin-right: 15px;
+  }

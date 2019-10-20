@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            <div class="tit-container">
+                <div class="titlee">
+                    قائمة الاشعارات
+                </div>
+                <div class="backicon">
+                    <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+                </div>
+            </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="spinner">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div id="no-items-ava">
+        <img src="assets/imgs/notification.svg">
+        <p class="noitem">لا يوجد عناصر</p>
+    </div>
+    <div id="SHOW" *ngFor="let data of eventData">
+        <ion-card>
+            <ion-item-divider class="divider" color="light">
+                <ion-label>{{data.title}}</ion-label>
+            </ion-item-divider>
+            <ion-card-content>{{data.content}}</ion-card-content>
+            <div class="datetime">
+                <ion-label>{{data.date}}</ion-label>
+            </div>
+        </ion-card>
+    </div>
+</ion-content>

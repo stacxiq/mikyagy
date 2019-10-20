@@ -1,0 +1,241 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          تاكيد الطلب
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card class="transparent-card">
+    <ion-slides #slides>
+      <ion-slide>
+        <ion-list>
+          <ion-item style="text-align: center ;color:#c0101e">
+            <h2>المعلومات الشخصية</h2>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>الاسم الاول</ion-label>
+            <ion-input type="text" [(ngModel)]="newOrder.firstname"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>اسم العائلة</ion-label>
+            <ion-input type="text" [(ngModel)]="newOrder.lastname"></ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label>رقم الهاتف</ion-label>
+            <ion-input type="tel" [(ngModel)]="newOrder.phone" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label> رقم هاتف ثاني</ion-label>
+            <ion-input type="tel" [(ngModel)]="newOrder.phone2"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>المحافظة</ion-label>
+            <ion-select name="governorate" [(ngModel)]="newOrder.governorate" okText="اختيار" cancelText="الغاء">
+              <ion-select-option value="بغداد">بغداد</ion-select-option>
+              <ion-select-option value="البصرة">البصرة</ion-select-option>
+              <ion-select-option value="النجف">النجف</ion-select-option>
+              <ion-select-option value="كربلاء">كربلاء</ion-select-option>
+              <ion-select-option value="صلاح الدين">صلاح الدين</ion-select-option>
+              <ion-select-option value="الانبار">الانبار</ion-select-option>
+              <ion-select-option value="ديالى">ديالى</ion-select-option>
+              <ion-select-option value="ميسان">ميسان</ion-select-option>
+              <ion-select-option value="القادسية">القادسية</ion-select-option>
+              <ion-select-option value="دهوك">دهوك</ion-select-option>
+              <ion-select-option value="نينوى">نينوى</ion-select-option>
+              <ion-select-option value="اربيل">اربيل</ion-select-option>
+              <ion-select-option value="بابل">بابل</ion-select-option>
+              <ion-select-option value="حلبجة">حلبجة</ion-select-option>
+              <ion-select-option value="ذي قار">ذي قار</ion-select-option>
+              <ion-select-option value="السليمانية">السليمانية</ion-select-option>
+              <ion-select-option value="كركوك">كركوك </ion-select-option>
+              <ion-select-option value="المثنى">المثنى</ion-select-option>
+              <ion-select-option value="واسط">واسط</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>المدينة</ion-label>
+            <ion-input class="form-control" type="text" name="city" [(ngModel)]="newOrder.city">
+            </ion-input>
+          </ion-item>
+          <!-- <ion-item>
+            <ion-label>المحلة</ion-label>
+            <ion-input class="form-control" type="tel" name="street" [(ngModel)]="newOrder.street">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>الزقاق</ion-label>
+            <ion-input class="form-control" type="tel" name="zoqaq" [(ngModel)]="newOrder.zoqaq">
+            </ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>الدار</ion-label>
+            <ion-input class="form-control" type="tel" name="house" [(ngModel)]="newOrder.house">
+            </ion-input>
+          </ion-item> -->
+          <ion-item>
+            <ion-label>نقطة دالة</ion-label>
+            <ion-input class="form-control" type="text" name="nearest_point" [(ngModel)]="newOrder.nearest_point">
+            </ion-input>
+          </ion-item>
+
+          <!-- <div class="form-check" style="margin:5px">
+            <label class="form-check-label">
+              <ion-checkbox color="danger" (click)="getAccountData()"></ion-checkbox>
+              استخدم معلومات الحساب الشخصية؟
+            </label>
+          </div> -->
+
+          <ion-button size="large" fill="clear" expand="block" color="danger" (click)="move(1,2)">
+            <ion-icon name="arrow-forward" color="danger"></ion-icon>
+            التالي
+          </ion-button>
+        </ion-list>
+      </ion-slide>
+
+      <ion-slide>
+        <ion-list lines="none" style="width: 95%">
+          <ion-item style="text-align: center; color:#c0101e">
+            <h2>تفاصيل الطلب</h2>
+          </ion-item>
+
+          <ion-card>
+            <ion-card-header style="text-align: center; color:#c0101e">
+              معلومات الحساب
+            </ion-card-header>
+            <ion-card-content>
+              <h2>{{ newOrder.firstname }} {{ newOrder.lastname }}</h2>
+              <h2>{{ newOrder.phone }}</h2>
+            </ion-card-content>
+          </ion-card>
+
+          <ion-card style="padding: 0;">
+            <ion-item color="light" *ngFor="let item of cartItems">
+              <ion-thumbnail item-right>
+                <img style="border-radius: 100%" [src]="item.product.featured_src || item.product.images[0].src" />
+              </ion-thumbnail>
+              <p style="font-weight: bold; margin:5px">{{ item.product.name }}</p>
+              <ion-row>
+                <ion-col col-auto>
+                  <div *ngIf="!item.variation" style="text-align: center;">
+                    <p><span style="font-weight: bold"> الكمية: </span> {{ item.qty }} <ion-badge color="danger">
+                        {{ item.product.price * item.qty }} د.ع </ion-badge>
+                    </p>
+                  </div>
+                  <div *ngIf="item.variation" style="text-align: center;">
+                    <p><span style="font-weight: bold"> الكمية: </span>{{ item.qty }} <ion-badge color="danger">
+                        {{ item.variation.price * item.qty }} د.ع </ion-badge>
+                    </p>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+            </ion-item>
+            <ion-item text-center>
+              <div>
+                <p> <span style="font-weight: bold"> سعر التوصيل : </span>{{shippcost}} د.ع</p>
+              </div>
+            </ion-item>
+            <ion-item text-center>
+
+              <div>
+
+                <p *ngIf="!hide"> <span style="font-weight: bold"> السعر الكلي: </span>{{total + shippcost}} د.ع</p>
+                <p *ngIf="hide"> <span style="font-weight: bold"> السعر الكلي قبل التخفيض:
+                  </span>{{total  + copunCost +  shippcost}} د.ع</p>
+                <p *ngIf="hide"> <span style="font-weight: bold"> السعر الكلي بعد التخفيض: </span>{{total + shippcost }}
+                  د.ع</p>
+              </div>
+            </ion-item>
+
+          </ion-card>
+
+          <ion-row style="text-align: center" *ngIf="!hide">
+            <ion-item>
+              <ion-input type="text" style="font-size: 1.1em;" [(ngModel)]="couponCode"
+                placeholder="ادخل كوبون التخفيض"></ion-input>
+              <ion-button item-right size="medium" color="danger" (click)="applyCouponCode(couponCode)">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                تفعيل الكوبون
+              </ion-button>
+            </ion-item>
+          </ion-row>
+          <ion-row *ngIf="hide">
+
+            <ion-button item-right expand="block" color="danger" (click)="replyCouponCode()">
+              اعاده ادخال الكوبون
+            </ion-button>
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-button item-right size="large" fill="clear" expand="block" icon-left color="danger"
+                (click)="placeOrder()">
+                <ion-icon name="arrow-forward" color="danger"></ion-icon>
+                تثبيت الطلب
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button item-right size="large" fill="clear" expand="block" icon-left color="danger"
+                (click)="move(2,1)">
+                <ion-icon name="arrow-back" color="danger"></ion-icon>
+                رجوع
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </ion-slide>
+
+      <ion-slide>
+        <ion-list lines="none" style="width: 95%">
+          <ion-item style="text-align: center; color:#c0101e">
+            <h2>طريقة الدفع</h2>
+          </ion-item>
+
+          <!-- <ion-item>
+            <ion-label>الدفع</ion-label>
+            <ion-select [(ngModel)]="newOrder.paymentMethod" okText="اختيار" cancelText="الغاء">
+              <ion-select-option value="الدفع عن الاستلام">الدفع عن الاستلام
+              </ion-select-option>
+            </ion-select>
+          </ion-item> -->
+
+          <ion-row>
+            <ion-col>
+              <ion-button item-right size="large" fill="clear" expand="block" icon-left color="danger"
+                (click)="placeOrder()">
+                <ion-icon name="arrow-forward" color="danger"></ion-icon>
+                تثبيت الطلب
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button item-right size="large" fill="clear" expand="block" icon-left color="danger"
+                (click)="move(3,2)">
+                <ion-icon name="arrow-back" color="danger"></ion-icon>
+                رجوع
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </ion-slide>
+    </ion-slides>
+
+  </ion-card>
+
+</ion-content>

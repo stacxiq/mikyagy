@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          {{name}}
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <div class="spinner">
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div id="no-items-ava">
+    <img src="assets/imgs/news.svg">
+    <p class="noitem">لا يوجد عناصر</p>
+  </div>
+
+  <ion-card id="SHOW" *ngFor="let post of posts" (click)="openPostDetailPage(post)">
+    <ion-item-divider color="danger">
+      {{ post.title.rendered }}
+    </ion-item-divider>
+
+    <img *ngIf="post.better_featured_image" [src]="post.better_featured_image.source_url">
+    <img *ngIf="!post.better_featured_image" src="https://www.foot.com/wp-content/uploads/2017/03/placeholder.gif">
+
+    <ion-card-content>
+      <div [innerHTML]="post.excerpt.rendered"></div>
+    </ion-card-content>
+
+    <ion-row style="background-color: #eeeeee">
+      <ion-button color="danger" icon-left>
+        <small> اقرا الان </small>
+        <ion-icon name="glasses"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

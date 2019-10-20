@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          قائمة تصنيف
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="align-self: center">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" (click)="goToProduct('الوجه')">
+            <img src="./assets/icon/face-mask.svg" width="40" height="45" alt="" />
+            <h2>الوجه</h2>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" (click)="goToProduct('العيون')">
+            <img src="./assets/icon/eyeshadow.svg" width="40" height="45" alt="" />
+            <h2>العيون</h2>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" (click)="goToProduct('الشفاه')">
+            <img src="./assets/icon/lipstick.svg" width="40" height="45" alt="" />
+            <h2>الشفاه</h2>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" (click)="goToProduct('الاظافر')">
+            <img src="./assets/icon/manicure.svg" width="40" height="45" alt="" />
+            <h2>الاظافر</h2>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" (click)="goToProduct('العناية بالجسم')">
+            <img src="./assets/icon/deodorant.svg" width="40" height="45" alt="" />
+            <h2>الجسم</h2>
+          </ion-card>
+        </ion-col>
+        <ion-col col-6>
+          <ion-card text-center padding color="danger" (click)="goToProduct('اخرى')">
+            <img src="./assets/icon/cosmetics.svg" width="40" height="45" alt="" />
+            <h2>اخرى</h2>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

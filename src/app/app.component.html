@@ -1,0 +1,159 @@
+<ion-app>
+  <ion-split-pane when="md lg xl">
+    <ion-menu side="end">
+      <ion-content>
+        <div style="text-align: center">
+          <img width="60%" height="60%" src="./assets/imgs/logo.png" />
+        </div>
+        <ion-list lines="none">
+          <ion-item-divider no-lines color="danger">مكياجي</ion-item-divider>
+
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <ion-menu-toggle auto-hide="false" style="pointer-events:none">
+                  <ion-item class="menuitem">
+                    <ion-icon slot="start" name="today"></ion-icon>
+                    <ion-label class="menulable">
+                      الاقسام
+                    </ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+              </mat-expansion-panel-header>
+              <ion-menu-toggle *ngFor="let category of categories" auto-hide="false">
+                <ion-item ion-text-wrap (click)="openCategoryPage(category)" menuClose>
+                  <h6 [innerHTML]="category.name"></h6>
+                </ion-item>
+              </ion-menu-toggle>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <ion-menu-toggle auto-hide="false" (click)="openPage('brands')">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="briefcase"></ion-icon>
+              <ion-label class="menulable">
+                الماركات
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <ion-menu-toggle auto-hide="false" style="pointer-events:none">
+                  <ion-item class="menuitem">
+                    <ion-icon slot="start" name="easel"></ion-icon>
+                    <ion-label class="menulable">
+                      التعلم
+                    </ion-label>
+                  </ion-item>
+                </ion-menu-toggle>
+              </mat-expansion-panel-header>
+              <ion-menu-toggle *ngFor="let category of postCategories" auto-hide="false">
+                <ion-item ion-text-wrap (click)="openPostCategoryPage(category)" menuClose>
+                  <h6 [innerHTML]="category.name"></h6>
+                </ion-item>
+              </ion-menu-toggle>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <ion-menu-toggle auto-hide="false" (click)="openPage('events')">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="notifications"></ion-icon>
+              <ion-label class="menulable">
+                الاشعارات
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-item-divider no-lines color="danger">الادارة</ion-item-divider>
+
+          <ion-menu-toggle auto-hide="false" (click)="openPage('signup')" *ngIf="!loggedIn">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="md-clipboard"></ion-icon>
+              <ion-label class="menulable">
+                انشاء حساب
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <!-- <ion-menu-toggle auto-hide="false" (click)="openPage('login')" *ngIf="!loggedIn">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="log-in"></ion-icon>
+              <ion-label class="menulable">
+                تسجيل الدخول
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+
+          <ion-menu-toggle auto-hide="false" (click)="userAccount()" *ngIf="loggedIn">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="contact"></ion-icon>
+              <ion-label class="menulable">
+                حسابك
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <!-- <ion-menu-toggle auto-hide="false" (click)="openPage('checkout')" *ngIf="loggedIn">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="cash"></ion-icon>
+              <ion-label class="menulable">
+                الطلبات
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+
+          <ion-menu-toggle auto-hide="false" (click)="openPage('cart')" *ngIf="loggedIn">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="cart"></ion-icon>
+              <ion-label class="menulable">
+                سلتك
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <!--  <ion-menu-toggle auto-hide="false" *ngIf="loggedIn" (click)="signout()">
+            <ion-item class="menuitem">
+              <ion-icon slot="start" name="log-out"></ion-icon>
+              <ion-label class="menulable">
+                تسجيل الخروج
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle> -->
+
+          <ion-item-divider no-lines color="danger">عن مكياجي</ion-item-divider>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item class="menuitem" (click)="openPage('about-us')">
+              <ion-icon slot="start" name="information-circle"></ion-icon>
+              <ion-label class="menulable">
+                حول
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item class="menuitem" (click)="openPage('call-us')">
+              <ion-icon slot="start" name="call"></ion-icon>
+              <ion-label class="menulable">
+                اتصل بنا
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false">
+            <ion-item class="menuitem" (click)="openPage('privacy-policy')">
+              <ion-icon slot="start" name="hand"></ion-icon>
+              <ion-label class="menulable">
+                سياسة الخصوصية
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

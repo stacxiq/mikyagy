@@ -1,0 +1,66 @@
+  
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <div class="tit-container">
+        <div class="titlee">
+          اتصل بنا
+        </div>
+        <div class="backicon">
+          <ion-icon name="arrow-round-back" (click)="back()"></ion-icon>
+        </div>
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content ion-padding>
+  <ion-list>
+    <div class="logos">
+      <img src="./assets/imgs/logo.png" width="150px">
+    </div>
+
+    <h2 style="color: #c0101e; text-align: center">- معلومات التواصل -</h2>
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="mail"></ion-icon> البريد الالكتروني
+      </p>
+    </ion-list-header>
+
+    <ion-item (click)="openMail()">
+      <p>Info@mikyagy.com</p>
+    </ion-item>
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="call"></ion-icon> رقم الادارة
+      </p>
+    </ion-list-header>
+
+    <ion-item (click)="callme('07703976225')">
+      <p>07703976225</p>
+    </ion-item>
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="call"></ion-icon> مركز خدمه الزبائن
+      </p>
+    </ion-list-header>
+
+    <ion-item (click)="callme('07702700856')">
+      <p>07702700856</p>
+    </ion-item>
+
+    <ion-list-header>
+      <p>
+        <ion-icon name="logo-facebook"></ion-icon> تواصل معنا عبر الفيسبوك
+      </p>
+    </ion-list-header>
+
+    <ion-item (click)="openUrl('facebook', 'mikyagyApp', 'https://www.facebook.com/mikyagyApp/')">
+      <p>صفحة مكياجي</p>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
