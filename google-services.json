@@ -30,6 +30,49 @@
             {
               "client_id": "636478986701-49rcs063kiturvoahs5hepmf46qtk6dc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "636478986701-rtbf7bkpinqnag19t4k26d5d49gdpunb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.husam.mikyagy"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636478986701:android:6170464661fac825724c84",
+        "android_client_info": {
+          "package_name": "com.husam.mikyagyforbeauty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636478986701-49rcs063kiturvoahs5hepmf46qtk6dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7ZESdZk1vscapsS1YCZUcPML3jtN7ZIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636478986701-49rcs063kiturvoahs5hepmf46qtk6dc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "636478986701-rtbf7bkpinqnag19t4k26d5d49gdpunb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.husam.mikyagy"
+              }
             }
           ]
         }

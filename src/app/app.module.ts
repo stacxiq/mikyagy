@@ -50,6 +50,7 @@ import { SectionsPageModule } from './sections/sections.module';
 import { SignupPageModule } from './signup/signup.module';
 import { UserEditPageModule } from './user-edit/user-edit.module';
 import { VerifyPageModule } from './verify/verify.module';
+import { HTTP } from '@ionic-native/http/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -57,7 +58,9 @@ import { VerifyPageModule } from './verify/verify.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot(
+     {mode: 'ios'}
+    ),
     FormsModule,
     IonicStorageModule.forRoot(),
     ReactiveFormsModule,
@@ -103,6 +106,7 @@ import { VerifyPageModule } from './verify/verify.module';
     CallNumber,
     DatePipe,
     FCM,
+    HTTP,
     LoadingService,
     DataService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

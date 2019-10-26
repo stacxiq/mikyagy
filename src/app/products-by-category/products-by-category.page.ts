@@ -117,7 +117,7 @@ export class ProductsByCategoryPage implements OnInit {
         console.log(this.products);
       })
     }, (err) => {
-      console.log(err)
+      console.log(err);
     });
   }
 }
