@@ -19,19 +19,35 @@ export class WooService {
 
     constructor(private http: HttpClient) { }
 
-     getAsync(query: string){
-        return  this.http.get(this.store_url + "/wp-json/wc/v2/" + query + this.access_key);
+     async getAsync(query: string){
+         try{
+        return await this.http.get(this.store_url + "/wp-json/wc/v2/" + query + this.access_key).toPromise();
+         } catch(err){
+             console.log(err);
+         }
     }
 
     getReviews(query: string) {
-        return this.http.get(this.store_url + "/wp-json/wc/v2/" + query + this.access_key2);
+        try{
+        return this.http.get(this.store_url + "/wp-json/wc/v2/" + query + this.access_key2).toPromise();
+    } catch(err){
+        console.log(err);
+    }
     }
 
     getPostCategories() {
-        return  this.http.get(this.store_url + "/wp-json/wp/v2/categories?per_page=100" + this.access_key);
+        try {
+        return  this.http.get(this.store_url + "/wp-json/wp/v2/categories?per_page=100" + this.access_key).toPromise();
+    } catch(err){
+        console.log(err);
+    }
     }
 
      getPostsByCategory(categoryId: any) {
-        return  this.http.get(this.store_url + "/wp-json/wp/v2/posts?categories=" + categoryId + "&per_page=100" + this.access_key);
+         try {
+        return  this.http.get(this.store_url + "/wp-json/wp/v2/posts?categories=" + categoryId + "&per_page=100" + this.access_key).toPromise();
+    } catch(err){
+        console.log(err);
+    }
     }
 }

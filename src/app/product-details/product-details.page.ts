@@ -68,7 +68,7 @@ export class ProductDetailsPage {
     this.product = product;
     // console.log(this.product);
     if(this.product != undefined){
-      this.woo.getAsync('products/' + this.product.id + '/variations?per_page=100').subscribe(data => {
+      this.woo.getAsync('products/' + this.product.id + '/variations?per_page=100').then(data => {
         this.productVariations = JSON.parse(JSON.stringify(data));
         // console.log(this.productVariations)
         for (let i in this.productVariations){

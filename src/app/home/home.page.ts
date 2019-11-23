@@ -73,13 +73,13 @@ export class HomePage implements OnInit {
   }
 
   getfeatured() {
-    this.woo.getAsync("products?featured=true").subscribe((data) => {
+    this.woo.getAsync("products?featured=true").then((data) => {
       this.featuredProducts = JSON.parse(JSON.stringify(data));
     });
   }
 
   getdiscount() {
-    this.woo.getAsync("products?on_sale=true").subscribe((data) => {
+    this.woo.getAsync("products?on_sale=true").then((data) => {
       this.discountProducts = JSON.parse(JSON.stringify(data));
     });
   }

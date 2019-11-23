@@ -73,11 +73,11 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.woo.getPostCategories().subscribe(data => {
+    this.woo.getPostCategories().then(data => {
       this.postCategories = JSON.parse(JSON.stringify(data));
     });
 
-    this.woo.getAsync("products/categories?parent=0&per_page=100").subscribe(data => {
+    this.woo.getAsync("products/categories?parent=0&per_page=100").then(data => {
       let info = JSON.parse(JSON.stringify(data));
 
       for (let item of info) {

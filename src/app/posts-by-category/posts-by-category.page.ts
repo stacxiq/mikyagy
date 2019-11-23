@@ -24,7 +24,7 @@ export class PostsByCategoryPage implements OnInit {
   }
 
   ngOnInit() {
-    this.woo.getPostsByCategory(this.id).subscribe(data => {
+    this.woo.getPostsByCategory(this.id).then(data => {
       $('.spinner').hide();
       if (data == null || data == undefined) {
         $('#no-items-ava').show();
