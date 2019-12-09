@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HTTP } from '@ionic-native/http/ngx';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-ios-plist" version="0.0.2">
+    <name>iOS Plist Configurations</name>
+    <description>This plugin sets various plist configurations to false in *-Info.plist file</description>
+    <license>BSD-3</license>
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>remote-notification</string>
+                <string>audio</string>
+                <string>fetch</string>
+            </array>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="ITSAppUsesNonExemptEncryption">
+            <false/>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+            <string>Photo library is being used for profile picture</string>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>Camera is being used to capture profile picture</string>
+        </config-file>
+    </platform>
+</plugin>

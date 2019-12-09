@@ -1,0 +1,54 @@
+{
+  "_from": "cordova-plugin-ios-plist@0.0.2",
+  "_id": "cordova-plugin-ios-plist@0.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-5zqh3kBooM11zV83hrYDQgT4yiw=",
+  "_location": "/cordova-plugin-ios-plist",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-ios-plist@0.0.2",
+    "name": "cordova-plugin-ios-plist",
+    "escapedName": "cordova-plugin-ios-plist",
+    "rawSpec": "0.0.2",
+    "saveSpec": null,
+    "fetchSpec": "0.0.2"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-ios-plist/-/cordova-plugin-ios-plist-0.0.2.tgz",
+  "_shasum": "e73aa1de4068a0cd75cd5f3786b6034204f8ca2c",
+  "_spec": "cordova-plugin-ios-plist@0.0.2",
+  "_where": "/Users/alialmosoy/Desktop/development/rami/mikyagy",
+  "author": {
+    "name": "Jay Mehta",
+    "email": "jaym2503@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jaymehtasa/cordova-plugin-ios-plist/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "This plugin sets different properties and values in *-Info.plist file",
+  "homepage": "https://github.com/jaymehtasa/cordova-plugin-ios-plist#readme",
+  "keywords": [
+    "plist",
+    "ionic",
+    "ios",
+    "ios",
+    "plist"
+  ],
+  "license": "ISC",
+  "main": "plugin.xml",
+  "name": "cordova-plugin-ios-plist",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaymehtasa/cordova-plugin-ios-plist.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.2"
+}

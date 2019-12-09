@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:636478986701:android:804fa335fed5b971724c84",
         "android_client_info": {
-          "package_name": "com.husam.mikyagy"
+          "package_name": "com.husam.mikyagyforbeauty"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "636478986701-rtbf7bkpinqnag19t4k26d5d49gdpunb.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.husam.mikyagy"
+                "bundle_id": "com.husam.mikyagyforbeauty"
               }
             }
           ]

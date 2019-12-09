@@ -34,6 +34,7 @@ export class ProductsByCategoryPage implements OnInit {
 
   ngOnInit() {
     this.woo.getAsync("products/categories?parent=" + this.category.id + "&per_page=100").then(data => {
+      console.log(data);
       this.ngZone.run(() => {
         this.subcategories = JSON.parse(JSON.stringify(data));
       })
@@ -43,6 +44,7 @@ export class ProductsByCategoryPage implements OnInit {
 
 
     this.woo.getAsync("products?category=" + this.category.id).then(data => {
+      console.log(data);
       this.ngZone.run(() => {
         this.products = JSON.parse(JSON.stringify(data));
         console.log(this.products);

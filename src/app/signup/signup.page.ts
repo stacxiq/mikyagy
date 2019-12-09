@@ -4,12 +4,10 @@ import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { NgForm } from '@angular/forms';
 import { DataService } from '../services/data.service'
-import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { LoadingService } from '../services/loading.service';
 import { FirebaseService } from '../services/firebase.service';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-signup',
@@ -23,9 +21,8 @@ export class SignupPage {
   mySelectedPhoto: any;
   constructor(public newUser: User,
     public data: DataService,
-    private camera: Camera,
     private storage: Storage,
-    private fb: Facebook,
+
     private fireAuth: AngularFireAuth,
     private fire: FirebaseService,
     private loading: LoadingService,
@@ -66,54 +63,9 @@ export class SignupPage {
     return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
   }
 
-  upload() {
-    const randomId = Math.random().toString(8).substring(2);
-    this.newUser.imgname = randomId;
 
-    if (this.mySelectedPhoto) {
-      var uploadTask = firebase.storage().ref().child('profiles/' + this.newUser.imgname + ".jpg");
-      var put = uploadTask.put(this.mySelectedPhoto);
-      put.then(() => {
-        uploadTask.getDownloadURL().then(url => {
-          this.loading.dismiss();
-          this.imagecheck = true;
-          this.newUser.image = url;
-        });
-      });
-      put.catch(err => {
-        this.loading.dismiss();
-        alert(JSON.stringify(err));
-      })
-    }
-  }
 
-  async takePhoto() {
-    let imgBlob;
-    const options: CameraOptions = {
-      targetHeight: 720,
-      targetWidth: 720,
-      quality: 80,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    }
-    await this.camera.getPicture(options).then(
-      imageData => {
-        this.loading.createLoading("الرجاء الانتظار").then(res => {
-          this.loading.show();
-        });
-        imgBlob = imageData;
-      },
-      err => {
-        alert(JSON.stringify(err));
-      }
-    );
-    this.mySelectedPhoto = await this.dataURLtoBlob(
-      "data:image/jpeg;base64," + imgBlob
-    );
-    await this.upload();
-  }
+
 
   makeid(length) {
     var result = '';
@@ -124,26 +76,9 @@ export class SignupPage {
     }
     return result;
   }
-  logginFacebook() {
-    this.fb.login(['email'])
-      .then((response: FacebookLoginResponse) => {
-        this.onLoginSuccess(response);
-        console.log(response.authResponse.accessToken);
-      }).catch((error) => {
-        console.log(error)
-        this.onLoginError(error);
-      });
-  }
 
-  async onLoginSuccess(res: FacebookLoginResponse) {
-    const credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-    await this.fireAuth.auth.signInWithCredential(credential)
-      .then((response) => {
-        let info = JSON.parse(JSON.stringify(response));
-        this.storage.set('userid', info.user.id);
-        this.checkAccount(info);
-      })
-  }
+
+
 
   onLoginError(err) {
     this.fire.presentToast("حصل خطا اثناء التسجيل!");

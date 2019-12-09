@@ -4,9 +4,7 @@ import { NgForm } from '@angular/forms';
 import { DataService } from '../services/data.service'
 import { FirebaseService } from '../services/firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
 import { LoadingService } from '../services/loading.service';
-import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-user-edit',
@@ -26,7 +24,6 @@ export class UserEditPage implements OnInit {
 
   constructor(public user: User,
     public data: DataService,
-    private camera: Camera,
     private fire: FirebaseService,
     private loading: LoadingService,
     private routerParam: ActivatedRoute,
@@ -85,61 +82,4 @@ export class UserEditPage implements OnInit {
     }
   }
 
-  dataURLtoBlob(myURL) {
-    let binary = atob(myURL.split(',')[1]);
-    let array = [];
-    for (let i = 0; i < binary.length; i++) {
-      array.push(binary.charCodeAt(i));
-    }
-    return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
-  }
-
-  upload() {
-    const randomId = Math.random().toString(8).substring(2);
-    this.user.imgname = randomId;
-
-    if (this.mySelectedPhoto) {
-      var uploadTask = firebase.storage().ref().child('profiles/' + this.user.imgname + ".jpg");
-      var put = uploadTask.put(this.mySelectedPhoto);
-      put.then(() => {
-        uploadTask.getDownloadURL().then(url => {
-          this.loading.dismiss();
-          this.newPhoto = true;
-          this.user.image = url;
-        });
-      });
-      put.catch(err => {
-        this.loading.dismiss();
-        alert(JSON.stringify(err));
-      })
-    }
-  }
-
-  async takePhoto() {
-    let imgBlob;
-    const options: CameraOptions = {
-      targetHeight: 720,
-      targetWidth: 720,
-      quality: 80,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-    }
-    await this.camera.getPicture(options).then(
-      imageData => {
-        this.loading.createLoading("الرجاء الانتظار").then(res => {
-          this.loading.show();
-        });
-        imgBlob = imageData;
-      },
-      err => {
-        alert(JSON.stringify(err));
-      }
-    );
-    this.mySelectedPhoto = await this.dataURLtoBlob(
-      "data:image/jpeg;base64," + imgBlob
-    );
-    await this.upload();
-  }
 }
