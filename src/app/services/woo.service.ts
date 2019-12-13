@@ -25,25 +25,25 @@ export class WooService {
          }
     }
 
-    getReviews(query: string) {
+    async getReviews(query: string) {
         try{
-        return this.http.get(this.store_url + "/wp-json/wc/v2/" + query + this.access_key2).toPromise();
+        return await this.http.get(this.store_url + "/wp-json/wc/v2/" + query + this.access_key2).toPromise();
     } catch(err){
         console.log(err);
     }
     }
 
-    getPostCategories() {
+    async getPostCategories() {
         try {
-        return  this.http.get(this.store_url + "/wp-json/wp/v2/categories?per_page=100" + this.access_key).toPromise();
+        return await this.http.get(this.store_url + "/wp-json/wp/v2/categories?per_page=100" + this.access_key).toPromise();
     } catch(err){
         console.log(err);
     }
     }
 
-     getPostsByCategory(categoryId: any) {
+     async getPostsByCategory(categoryId: any) {
          try {
-        return  this.http.get(this.store_url + "/wp-json/wp/v2/posts?categories=" + categoryId + "&per_page=100" + this.access_key).toPromise();
+        return await this.http.get(this.store_url + "/wp-json/wp/v2/posts?categories=" + categoryId + "&per_page=100" + this.access_key).toPromise();
     } catch(err){
         console.log(err);
     }

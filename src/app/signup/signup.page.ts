@@ -21,8 +21,8 @@ export class SignupPage {
   mySelectedPhoto: any;
   constructor(public newUser: User,
     public data: DataService,
-    private storage: Storage,
 
+    private storage: Storage,
     private fireAuth: AngularFireAuth,
     private fire: FirebaseService,
     private loading: LoadingService,
@@ -63,7 +63,26 @@ export class SignupPage {
     return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
   }
 
+  upload() {
+    const randomId = Math.random().toString(8).substring(2);
+    this.newUser.imgname = randomId;
 
+    if (this.mySelectedPhoto) {
+      var uploadTask = firebase.storage().ref().child('profiles/' + this.newUser.imgname + ".jpg");
+      var put = uploadTask.put(this.mySelectedPhoto);
+      put.then(() => {
+        uploadTask.getDownloadURL().then(url => {
+          this.loading.dismiss();
+          this.imagecheck = true;
+          this.newUser.image = url;
+        });
+      });
+      put.catch(err => {
+        this.loading.dismiss();
+        alert(JSON.stringify(err));
+      })
+    }
+  }
 
 
 
@@ -76,7 +95,6 @@ export class SignupPage {
     }
     return result;
   }
-
 
 
 

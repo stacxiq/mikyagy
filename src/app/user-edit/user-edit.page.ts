@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service'
 import { FirebaseService } from '../services/firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoadingService } from '../services/loading.service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-user-edit',
@@ -82,4 +83,36 @@ export class UserEditPage implements OnInit {
     }
   }
 
+  dataURLtoBlob(myURL) {
+    let binary = atob(myURL.split(',')[1]);
+    let array = [];
+    for (let i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+  }
+
+  upload() {
+    const randomId = Math.random().toString(8).substring(2);
+    this.user.imgname = randomId;
+
+    if (this.mySelectedPhoto) {
+      var uploadTask = firebase.storage().ref().child('profiles/' + this.user.imgname + ".jpg");
+      var put = uploadTask.put(this.mySelectedPhoto);
+      put.then(() => {
+        uploadTask.getDownloadURL().then(url => {
+          this.loading.dismiss();
+          this.newPhoto = true;
+          this.user.image = url;
+        });
+      });
+      put.catch(err => {
+        this.loading.dismiss();
+        alert(JSON.stringify(err));
+      })
+    }
+  }
+
+
+  
 }

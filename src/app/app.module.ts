@@ -23,12 +23,33 @@ import { DatePipe } from '@angular/common';
 import { IonicStorageModule } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { AppAvailability } from '@ionic-native/app-availability/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { firebaseConfig } from './app.firebase';
-import { HttpClientModule } from '@angular/common/http';
+import { AboutUsPageModule } from './about-us/about-us.module';
+import { AccountPageModule } from './account/account.module';
+import { BrandsPageModule } from './brands/brands.module';
+import { CallUsPageModule } from './call-us/call-us.module';
+import { CartPageModule } from './cart/cart.module';
+import { CategoryPageModule } from './category/category.module';
+import { CheckoutPageModule } from './checkout/checkout.module';
+import { EventsPageModule } from './events/events.module';
+import { HomePageModule } from './home/home.module';
+import { LoginPageModule } from './login/login.module';
+import { PostDetailsPageModule } from './post-details/post-details.module';
+import { PostsByCategoryPageModule } from './posts-by-category/posts-by-category.module';
+import { PrivacyPolicyPageModule } from './privacy-policy/privacy-policy.module';
+import { ProductDetailsPageModule } from './product-details/product-details.module';
+import { ProductsByCategoryPageModule } from './products-by-category/products-by-category.module';
+import { SectionsPageModule } from './sections/sections.module';
+import { SignupPageModule } from './signup/signup.module';
+import { UserEditPageModule } from './user-edit/user-edit.module';
+import { VerifyPageModule } from './verify/verify.module';
+import { Facebook } from '@ionic-native/facebook/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -42,6 +63,7 @@ import { HttpClientModule } from '@angular/common/http';
     IonicStorageModule.forRoot(),
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
@@ -49,8 +71,26 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireStorageModule,
     MatExpansionModule,
     MatSelectModule,
-    HttpClientModule,
     MatFormFieldModule,
+    AboutUsPageModule,
+    AccountPageModule,
+    BrandsPageModule,
+    CallUsPageModule,
+    CartPageModule,
+    CategoryPageModule,
+    CheckoutPageModule,
+    EventsPageModule,
+    HomePageModule,
+    LoginPageModule,
+    PostDetailsPageModule,
+    PostsByCategoryPageModule,
+    PrivacyPolicyPageModule,
+    ProductDetailsPageModule,
+    ProductsByCategoryPageModule,
+    SectionsPageModule,
+    SignupPageModule,
+    UserEditPageModule,
+    VerifyPageModule
   ],
   providers: [
     StatusBar,
@@ -59,9 +99,11 @@ import { HttpClientModule } from '@angular/common/http';
     InAppBrowser,
     AppAvailability,
     FirebaseService,
+ 
     CallNumber,
     DatePipe,
     FCM,
+    Facebook,
     LoadingService,
     DataService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

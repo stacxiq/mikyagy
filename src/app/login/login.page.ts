@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { FirebaseService } from '../services/firebase.service';
 import { LoadingService } from '../services/loading.service';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from '../models/user.model';
 import { DataService } from '../services/data.service';
 import { Storage } from '@ionic/storage';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginPage {
   constructor(private fire: FirebaseService,
     public newUser: User,
     private storage: Storage,
-  
+    private fb: Facebook,
     private fireAuth: AngularFireAuth,
     private loader: LoadingService,
     private data: DataService,
@@ -57,27 +58,27 @@ export class LoginPage {
     });
     f.resetForm();
   }
-// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-  // logginFacebook() {
-  //   this.fb.login(['email'])
-  //     .then((response: FacebookLoginResponse) => {
-  //       this.onLoginSuccess(response);
-  //       console.log(response.authResponse.accessToken);
-  //     }).catch((error) => {
-  //       console.log(error)
-  //       this.onLoginError(error);
-  //     });
-  // }
 
-  // async onLoginSuccess(res: FacebookLoginResponse) {
-  //   const credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-  //   await this.fireAuth.auth.signInWithCredential(credential)
-  //     .then((response) => {
-  //       let info = JSON.parse(JSON.stringify(response));
-  //       this.storage.set('userid', info.user.id);
-  //       this.checkAccount(info);
-  //     })
-  // }
+  logginFacebook() {
+    this.fb.login(['email'])
+      .then((response: FacebookLoginResponse) => {
+        this.onLoginSuccess(response);
+        console.log(response.authResponse.accessToken);
+      }).catch((error) => {
+        console.log(error)
+        this.onLoginError(error);
+      });
+  }
+
+  async onLoginSuccess(res: FacebookLoginResponse) {
+    const credential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+    await this.fireAuth.auth.signInWithCredential(credential)
+      .then((response) => {
+        let info = JSON.parse(JSON.stringify(response));
+        this.storage.set('userid', info.user.id);
+        this.checkAccount(info);
+      })
+  }
 
   onLoginError(err) {
     this.fire.presentToast("حصل خطا اثناء التسجيل!");
